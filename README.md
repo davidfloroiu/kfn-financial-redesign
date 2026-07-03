@@ -51,6 +51,13 @@ site/
 node serve.mjs        # http://localhost:4173 (respects PORT env)
 ```
 
+## Live test site
+
+- **GitHub Pages**: https://davidfloroiu.github.io/kfn-financial-redesign/ — auto-deploys
+  from `site/` on every push to `main` (see `.github/workflows/pages.yml`)
+- **Repo**: https://github.com/davidfloroiu/kfn-financial-redesign (public — required for
+  Pages on a free account)
+
 ## Client presentation preview
 
 A single-file compilation of all 11 pages (embedded fonts, hash-based navigation) is
