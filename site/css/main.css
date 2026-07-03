@@ -43,6 +43,7 @@ body {
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip; /* decorative pseudo-elements may bleed past the edge */
 }
 
 img, svg { display: block; max-width: 100%; }
@@ -159,6 +160,7 @@ p { max-width: 68ch; }
 .grid { display: grid; gap: 32px; }
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: center; }
 .split--top { align-items: start; }
+.split--qa { grid-template-columns: 1fr 1.6fr; }
 
 /* ---- Buttons ---- */
 .btn {
@@ -1152,7 +1154,7 @@ html.js .reveal.in-view { opacity: 1; transform: none; }
 @media (max-width: 960px) {
   .utility-bar .u-standard { display: none; }
   .utility-bar { font-size: 0.6875rem; }
-  .split { grid-template-columns: 1fr; }
+  .split, .split--qa { grid-template-columns: 1fr; }
   .practice-grid { grid-template-columns: repeat(2, 1fr); }
   .ledger-stats { grid-template-columns: repeat(2, 1fr); }
   .ledger-stats .lstat:nth-child(3) { border-left: 0; }
@@ -1167,7 +1169,20 @@ html.js .reveal.in-view { opacity: 1; transform: none; }
 
 @media (max-width: 640px) {
   :root { --header-h: 64px; }
+  /* Header must fit 320-414px: drop the wordmark sub-line, tighten gaps */
+  .wordmark .wm-sub { display: none; }
+  .site-header .container { gap: 10px; }
+  .header-cta { margin-left: auto; }
+  .nav-toggle { margin-left: 0; }
+  /* Utility bar: phone + response standard matter most on mobile */
+  .utility-bar .container > span:first-child { display: none; }
+  .utility-bar .container { justify-content: center; }
   .utility-bar .u-right .u-standard { display: none; }
+  /* Running heads: the right-aligned firm mark can't fit */
+  .running-head .rh-mark { display: none; }
+  /* Monumental type: scale down floor so long words never clip */
+  .display, .h-display { font-size: clamp(2.5rem, 11vw, 7.25rem); }
+  .hero--sub h1 { font-size: clamp(2.125rem, 9.5vw, 5rem); }
   .practice-grid { grid-template-columns: 1fr; }
   .practice-cell { min-height: 0; }
   .ledger-stats { grid-template-columns: 1fr 1fr; }
