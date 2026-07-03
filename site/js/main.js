@@ -2,6 +2,10 @@
 (function () {
   "use strict";
 
+  /* Signal that JS is running — reveal/terminal hidden states are scoped to html.js
+     so content is never invisible if scripting fails */
+  document.documentElement.classList.add("js");
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Sticky header: gain solid fill after 24px of scroll */
@@ -75,7 +79,7 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0, rootMargin: "0px 0px -40px 0px" }
     );
     revealEls.forEach(function (el) { revealObs.observe(el); });
   } else {

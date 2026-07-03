@@ -488,8 +488,9 @@ p { max-width: 68ch; }
 }
 .hero--sub .lead { margin-top: 24px; }
 
-/* Staggered line reveal */
-.hero .rise { display: block; opacity: 0; transform: translateY(28px); animation: rise 640ms var(--ease) forwards; }
+/* Staggered line reveal — animation only when JS is running */
+.hero .rise { display: block; }
+html.js .hero .rise { opacity: 0; transform: translateY(28px); animation: rise 640ms var(--ease) forwards; }
 .hero .rise-2 { animation-delay: 90ms; }
 .hero .rise-3 { animation-delay: 180ms; }
 .hero .rise-4 { animation-delay: 270ms; }
@@ -674,11 +675,10 @@ p { max-width: 68ch; }
   font-size: 0.9375rem;
   letter-spacing: 0.02em;
   color: var(--steel);
-  opacity: 0;
-  transform: translateY(4px);
   transition: opacity 360ms var(--ease), transform 360ms var(--ease);
 }
-.terminal .term-line.shown { opacity: 1; transform: none; }
+html.js .terminal .term-line { opacity: 0; transform: translateY(4px); }
+html.js .terminal .term-line.shown { opacity: 1; transform: none; }
 .terminal .term-line .dots { flex: 1; border-bottom: 1px dotted var(--hairline-dark); transform: translateY(-3px); }
 .terminal .term-line .status { color: var(--paper); }
 .terminal .term-line--volt .status, .terminal .term-line--volt { color: var(--volt); }
@@ -1085,21 +1085,23 @@ input::placeholder, textarea::placeholder { color: var(--steel); }
 }
 .footer-monument .vsq { background: var(--volt); opacity: 0.5; }
 
-/* ---- Reveal animations ---- */
-.reveal {
+/* ---- Reveal animations ----
+   Hidden state only applies when JS is running (html.js) — without JS,
+   every element renders visible. */
+html.js .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 600ms var(--ease), transform 600ms var(--ease);
 }
-.reveal.in-view { opacity: 1; transform: none; }
+html.js .reveal.in-view { opacity: 1; transform: none; }
 .reveal-d1 { transition-delay: 80ms; }
 .reveal-d2 { transition-delay: 160ms; }
 .reveal-d3 { transition-delay: 240ms; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .hero .rise { opacity: 1; transform: none; transition: none; animation: none; }
-  .terminal .term-line { opacity: 1; transform: none; transition: none; }
+  .reveal, html.js .reveal, .hero .rise { opacity: 1; transform: none; transition: none; animation: none; }
+  .terminal .term-line, html.js .terminal .term-line { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
